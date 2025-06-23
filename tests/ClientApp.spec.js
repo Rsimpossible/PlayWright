@@ -27,4 +27,19 @@ test('Browser context Playwright test', async ({page})=>
         const bool =await page.locator("h3:has-text('Fav Gucci')").isVisible();
         expect(bool).toBeTruthy();
         await page.locator("text=Checkout").click();
+        await page.locator("[placeholder*='Country']").pressSequentially("ind",{delay:100});
+        const dropdown = page.locator(".ta-results");
+        await dropdown.waitFor();
+        await dropdown.locator("button").count();
+        const optionsCount = await dropdown.locator("button").count();
+        for (let i = 0; i < optionsCount; ++i)
+        {
+                const text = await dropdown.locator("button").nth(i).textContent();
+                if (text == " India")
+                        {
+                                await dropdown.locator("button").nth(i).click();
+                                break;
+                        }
+        }
+        await page.pause()
 });
