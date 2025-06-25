@@ -3,6 +3,7 @@ const {test, expect} = require('@playwright/test');
 
 test('Browser context Playwright test', async ({page})=>
 {
+        const email = "anshika@gmail.com"
         const productName = 'Fav Gucci'
         const products = page.locator(".card-body");
         await page.goto("https://rahulshettyacademy.com/client");
@@ -41,5 +42,8 @@ test('Browser context Playwright test', async ({page})=>
                                 break;
                         }
         }
+                expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
+                await page.locator(".action__submit").click();
         await page.pause()
+        
 });
