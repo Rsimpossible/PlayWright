@@ -44,6 +44,8 @@ test('Browser context Playwright test', async ({page})=>
         }
                 expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
                 await page.locator(".action__submit").click();
-        await page.pause()
+                await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
+                const orderID = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
+                console.log(orderID);
         
 });
