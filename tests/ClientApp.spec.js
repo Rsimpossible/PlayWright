@@ -47,5 +47,20 @@ test('Browser context Playwright test', async ({page})=>
                 await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
                 const orderID = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
                 console.log(orderID);
+                await page.locator("button[routerlink*='myorders']").click();
+                await page.locator("tbody").waitFor();
+                const rows = await page.locator("tbody tr");
+                for(let i = 0; i<await rows.count(); ++i)
+                {
+                        const rowOrderID = await rows.nth(i).locator("th").textContent();
+                        if (orderID.includes(rowOrderID))
+                        {
+                                await rows.nth(i).locator("button").first().click();
+                                break;
+                        }
+                }
+                const orderIDDetails = await page.locator(".col-text").textContent();
+                expect(orderID.includes(orderIDDetails)).toBeTruthy
+                
         
 });
