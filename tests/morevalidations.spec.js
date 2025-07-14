@@ -19,3 +19,12 @@ test("popup validations",async({page})=>
     console.log(textCheck.split(" ")[1]);
 
 });
+
+test.only("screenshot & Visual comparison", async({page}))=>
+{
+    await page.goto("https://rahulshettyacademy.com/AutomationPractice/")
+    await expect(page.locator("#displayed-text")).toBeVisible();
+    await page.locator("#hide-textbox").click();
+    await page.screenshot({path: 'screenshot.png'});
+    await expect(page.locator("#displayed-text")).toBeHidden();
+}
